@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    git url: 'https://github.com/akshitttt/Jenkins_Spring.git'
+                    sh "ls -lart ./*"
+                    sh "git branch -a"
+                }
+            }
+       }
+
+        stage ('Build Stage') {
+            steps {
+                echo "building the application..."
+            }
+        }
+
+        stage ('Testing Stage') {
+            steps{
+                echo "testing the application..."
+            }
+        }
+    }
+}
