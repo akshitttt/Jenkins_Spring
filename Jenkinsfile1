@@ -6,14 +6,14 @@ pipeline{
     stages{
         stage('Checkout SCM'){
             steps{
-                git url: 'https://gitlab.com/123Balu42/Jenkins_Spring.git'
+                git url: 'https://github.com/akshitttt/Jenkins_Spring.git'
             }
         }
         
         stage('Build'){
             steps{
                 echo "Running Job: ${env.JOB_NAME}\n build: ${env.BUILD_ID}"
-                sh 'mvn -f ./pom.xml clean install package'
+                sh 'mvn -f ./pom1.xml clean install package'
             }
             post{
                 success{
@@ -24,7 +24,7 @@ pipeline{
         }
         post{
             failure{
-                mail to: '123balu42@gmail.com' from: '123balu42@gmail.com'
+                mail to: 'akshit075@gmail.com' from: 'akshit075@gmail.com'
                 Subject: "Project Build: ${env.JOB_NAME} - Failed"
                 body: "Job Failed - \ "${env.JOB_NAME}\" build: ${env.BUILD_NUMBER}
 
@@ -34,7 +34,7 @@ pipeline{
                 body: '''${SCRIPT, template="groovy-template"}''',
                 subject: "Project Build: ${env.JOB_NAME} - SUCCESS"
                 mimeType: 'text/html'
-                to: 123balu42@gmail.com
+                to: akshit075@gmail.com
 
             }
         }
