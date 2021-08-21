@@ -41,7 +41,7 @@ pipeline
                 body: '''${SCRIPT, template="groovy-template"}''',
                 subject: "Project Build: ${env.JOB_NAME} - SUCCESS"
                 mimeType: 'text/html'
-                to: akshit075@gmail.com
+                to: 'akshit075@gmail.com'
                 }
             }
         }
