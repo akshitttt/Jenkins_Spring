@@ -1,31 +1,42 @@
-pipeline{
+pipeline
+{
     agent any
-    tools{
+    tools
+    {
         maven 'maven'
     }
-    stages{
-        stage('Checkout SCM'){
-            steps{
+    stages
+    {
+        stage('Checkout SCM')
+        {
+            steps
+            {
                 git url: 'https://github.com/akshitttt/Jenkins_Spring.git'
             }
         }
-        stage('Build'){
-            steps{
+        stage('Build')
+        {
+            steps
+            {
                 echo "Running Job: ${env.JOB_NAME}\n build: ${env.BUILD_ID}"
                 sh 'mvn -f ./pom1.xml clean install package'
             }
             post{
-                success{
+                success
+                {
                     archiveArtifacts(artifacts: 'Jenkins_Spring/target/*.war', allowEmptyArchive: true)
                 }
             }
-            post{
-                failure{
+            post
+            {
+                failure
+                {
                     mail to: 'akshit075@gmail.com', from: 'akshit075@gmail.com'
                     Subject: "Project Build: ${env.JOB_NAME} - Failed"
                     body: "Job Failed - \"${env.JOB_NAME}\", build: ${env.BUILD_NUMBER}
                 }
-            success{
+                success
+                {
                 emailext attachPattern: "*target/*.war",
                 body: '''${SCRIPT, template="groovy-template"}''',
                 subject: "Project Build: ${env.JOB_NAME} - SUCCESS"
@@ -33,6 +44,6 @@ pipeline{
                 to: akshit075@gmail.com
                 }
             }
-        }   
+        }
     }
 }
